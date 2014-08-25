@@ -57,7 +57,7 @@ class GameScene: SKScene {
         //fucking important!
         //case you will get the fucking default -.98 gravity
         self.physicsWorld.gravity = CGVectorMake(0, 0)
-        self.physicsBody = SKPhysicsBody(rectangleOfSize:self.size)
+        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame);
         self.physicsBody.friction = 0.00
         
         self.backgroundColor = SKColor.whiteColor()
