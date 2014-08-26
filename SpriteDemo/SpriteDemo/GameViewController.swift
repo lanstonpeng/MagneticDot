@@ -27,10 +27,12 @@ extension SKNode {
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var sldier: UISlider!
+    var scene:GameScene!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+        scene = GameScene.unarchiveFromFile("GameScene") as GameScene
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true
@@ -41,9 +43,18 @@ class GameViewController: UIViewController {
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
+            skView.showsPhysics = true
             
             skView.presentScene(scene)
-        }
+            sldier.addTarget(self, action: "logSlider:", forControlEvents: .ValueChanged)
+        
+    }
+
+
+    func logSlider(sender:UISlider)
+    {
+       scene.fieldNode.falloff = sender.value * 10
+        println(scene.fieldNode.falloff)
     }
 
     override func shouldAutorotate() -> Bool {

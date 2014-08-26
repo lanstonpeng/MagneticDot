@@ -403,6 +403,7 @@
 				9D3FB72019A4C13E0015395D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D3FB72119A4C13E0015395D /* Build configuration list for PBXNativeTarget "SpriteDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -411,6 +412,7 @@
 				9D3FB72319A4C13E0015395D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

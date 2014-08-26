@@ -14,7 +14,7 @@ class GameScene: SKScene {
     let canvasWidth: UInt32 = 800
     let canvasHeight: UInt32 = 800
     
-    let fieldNode: SKFieldNode
+    var fieldNode: SKFieldNode
     let blackNode: SKShapeNode
     
     var midPt:CGPoint {
@@ -35,11 +35,10 @@ class GameScene: SKScene {
     required init(coder aDecoder: NSCoder) {
         
         fieldNode = SKFieldNode.magneticField()
-        fieldNode.physicsBody = SKPhysicsBody(circleOfRadius: 80)
         fieldNode.categoryBitMask = categoryMask
-        fieldNode.strength = 28
+        fieldNode.strength = 1
         fieldNode.enabled = true
-        fieldNode.physicsBody.charge = 10000
+        fieldNode.falloff = 1.0
         
         blackNode = SKShapeNode(circleOfRadius: 10)
         blackNode.fillColor = UIColor.blackColor()
@@ -58,7 +57,7 @@ class GameScene: SKScene {
         //case you will get the fucking default -.98 gravity
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame);
-        self.physicsBody.friction = 0.00
+        //self.physicsBody.friction = 0.00
         
         self.backgroundColor = SKColor.whiteColor()
         let cross:CGMutablePathRef = CGPathCreateMutable();
@@ -91,18 +90,20 @@ class GameScene: SKScene {
     func makeNode() -> SKNode
     {
         //var node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:20,height:20))
-        var node = SKShapeNode(circleOfRadius: 10)
-        node.fillColor = UIColor.orangeColor()
+        //var node = SKShapeNode(circleOfRadius: 10)
+        var node = SKSpriteNode(imageNamed: "ball")
+        //node.fillColor = UIColor.orangeColor()
         node.position = emitterPos
-        node.physicsBody = SKPhysicsBody(rectangleOfSize:CGSize(width:10,height:10))
+        node.physicsBody = SKPhysicsBody(rectangleOfSize:CGSize(width:20,height:20))
         node.physicsBody.dynamic = true
-        node.physicsBody.charge = 10000
+        node.physicsBody.charge = 5000
         node.physicsBody.mass = 0.1
         node.physicsBody.allowsRotation = true
         node.physicsBody.affectedByGravity = false
         node.physicsBody.friction = 0
         node.physicsBody.linearDamping = 0
         addChild(node)
+        node.physicsBody.applyImpulse( CGVectorMake( node.physicsBody.mass * 400, 50))
         return node
     }
     func makeFieldNode() -> SKFieldNode
