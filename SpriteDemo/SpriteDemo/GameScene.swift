@@ -34,11 +34,12 @@ class GameScene: SKScene {
     }
     required init(coder aDecoder: NSCoder) {
         
+        //fieldNode = SKFieldNode.radialGravityField()
         fieldNode = SKFieldNode.magneticField()
         fieldNode.categoryBitMask = categoryMask
-        fieldNode.strength = 1
+        fieldNode.strength = 4
         fieldNode.enabled = true
-        fieldNode.falloff = 1.0
+        fieldNode.falloff = 0.4
         
         blackNode = SKShapeNode(circleOfRadius: 10)
         blackNode.fillColor = UIColor.blackColor()
@@ -77,7 +78,8 @@ class GameScene: SKScene {
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
             makeNode()
     }
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         let touch:UITouch = touches.anyObject() as UITouch
         
         let location = touch.locationInNode(self)
@@ -95,27 +97,28 @@ class GameScene: SKScene {
         //node.fillColor = UIColor.orangeColor()
         node.position = emitterPos
         node.physicsBody = SKPhysicsBody(rectangleOfSize:CGSize(width:20,height:20))
-        node.physicsBody.dynamic = true
-        node.physicsBody.charge = 5000
-        node.physicsBody.mass = 0.1
-        node.physicsBody.allowsRotation = true
-        node.physicsBody.affectedByGravity = false
-        node.physicsBody.friction = 0
-        node.physicsBody.linearDamping = 0
+        node.physicsBody?.dynamic = true
+        node.physicsBody?.charge = 5000
+        node.physicsBody?.mass = 0.1
+        node.physicsBody?.allowsRotation = true
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.friction = 0
+        node.physicsBody?.linearDamping = 0
+        node.physicsBody?.categoryBitMask = categoryMask
         addChild(node)
-        node.physicsBody.applyImpulse( CGVectorMake( node.physicsBody.mass * 400, 50))
+        node.physicsBody?.applyImpulse( CGVectorMake( node.physicsBody!.mass * 400, 50))
         return node
     }
-    func makeFieldNode() -> SKFieldNode
-    {
-        
-        let fieldNode = SKFieldNode.magneticField()
-        fieldNode.physicsBody = SKPhysicsBody(circleOfRadius: 80)
-        fieldNode.strength = 2.8
-        fieldNode.enabled = true
-        fieldNode.position = CGPointZero
-        return fieldNode
-    }
+//    func makeFieldNode() -> SKFieldNode
+//    {
+//        
+//        let fieldNode = SKFieldNode.magneticField()
+//        fieldNode.physicsBody = SKPhysicsBody(circleOfRadius: 80)
+//        fieldNode.strength = 2.8
+//        fieldNode.enabled = true
+//        fieldNode.position = CGPointZero
+//        return fieldNode
+//    }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
